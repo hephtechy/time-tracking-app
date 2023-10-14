@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Report{% endblock %}
+
+{% block content%}
+<h1 align="center">Time-tracker Report Page</h1>
+
+<h5>Time-Tracker Table</h5>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">S/N</th>
+        <th scope="col">Name</th>
+        <th scope="col">Time-in</th>
+        <th scope="col">Time-out</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in user %}
+      <tr>
+        {% if row.sign_in_time.date() == new_date %}
+        <th scope="row">{{row.id}}</th> <!-- {{loop.index}} -->
+        <td>{{row.first_name}} {{row.last_name}}</td>
+        <td>{{row.sign_in_time.hour}}:{{row.sign_in_time.minute}}</td>
+        <td>{{row.sign_out_time.hour}}:{{row.sign_out_time.minute}}</td>
+
+        <td>
+          {% if row.sign_in_status %}
+                <a href="/sign_out/{{row.id}}"  class="btn btn-outline-danger btn-sm mx-1">Sign_out</button>
+          {% else %}
+                <a href="#"  class="btn btn-outline-primary btn-sm mx-1">Signed_out</button>
+          {% endif %}
+        </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+{% endblock %}
